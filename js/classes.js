@@ -1,5 +1,6 @@
-//import '' from './classes/';
+import ValidateCurriculumForms from './classes/ValidateCurriculumForms.js';
 
+/*
 class ValidateCurriculumForms {
 
     constructor(){
@@ -547,7 +548,7 @@ class FieldsetProfessional {
         localStorage.setItem("ProfessionalValuesJSON", ProfessionalValuesJSON);
     }
 }
-
+*/
 
 
 /*
