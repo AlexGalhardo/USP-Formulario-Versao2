@@ -1,0 +1,163 @@
+.button-app-main-page {
+    display: block;
+    border-color: #BBDEFB;
+    border-radius: 10px;
+    text-align: center;
+    width: 95%;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1em 2em;
+    font-weight: bold;
+    margin: 20px auto;
+    color: black;   
+    box-shadow: 0 5px #999;
+    background-color: #BBDEFB;
+}
+
+.button-app-main-page:hover {
+    border-color: #0D47A1;
+    background-color: #0D47A1;
+    color: white;
+}
+
+.button-app-main-page:active {
+    //background-color: #3e8e41;
+    box-shadow: 2px 5px #666;
+    transform: translateY(4px);
+}
+
+.button_register_new_data {
+	display: block;
+    border-color: #BBDEFB;
+    border-radius: 7px;
+    text-align: center;
+    width: 50%;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1em 2em;
+    font-weight: bold;
+    margin: 20px auto;
+    color: white;   
+    box-shadow: 0 5px #999;
+    background-color: green;
+}
+
+.button_register_new_data:hover {
+    border-color: #0D47A1;
+    background-color: #0D47A1;
+    color: white;
+}
+
+.button_register_new_data:active {
+    //background-color: #3e8e41;
+    box-shadow: 2px 5px #666;
+    transform: translateY(4px);
+}
+
+.input_verify_forms {
+	border-radius: 5px;
+	background-color: green;
+	font-family: Rubik;
+	font-weight: bold;
+	letter-spacing: 2px;
+	padding: 10px;
+	box-shadow: 3px 3px gray;
+	border-color: white;
+	color: white;
+}
+
+body {
+	font-family: "Rubik";
+}
+
+header {
+	text-align: center;
+}
+
+h3, h4 {
+	text-align: center;
+}
+
+fieldset {
+	border: 2px solid gray;
+	background-color: #ffe;
+	border-radius: 10px;
+}
+
+/* Index.php */
+span {
+	color: red;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
+}
+
+input {
+	border-color: #eee;
+	padding: 10px;
+	margin: 10px;
+}
+
+.cadastrar_input {
+	color: white;
+	background-color: green;
+	border-radius: 5px;
+	letter-spacing: 1px;
+	padding: 1em;
+	font-weight: bold;
+}
+
+textarea {
+	border-color: blue;
+	border-radius: 5px;
+	margin: 10px 0px;
+}
+
+textarea:focus {
+	border-color: green;
+}
+
+input:focus {
+	border-color: green;
+}
+
+a:hover {
+	color: orange;
+}
+
+.div_home {
+	max-width: 700px; 
+	margin: 0 auto;
+}
+
+.div_registered {
+	max-width: 1200px; 
+	margin: 0 auto;
+}
+
+.div_update {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+h1 {
+	text-align: center;
+}
+
+/* Cadastrados.php */
+table {
+	border-color: white;
+}
+
+th, a {
+	text-align: center;
+	border-color: white;
+	margin: 2px 2px;
+}
+
+td {
+	text-align: center;
+	padding: 0.2em;
+}
