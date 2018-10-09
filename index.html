@@ -28,7 +28,7 @@
 			
 
 				<fieldset class="js-accordion">
-					<span id="errorName"></span><br>
+					<span id="errorCompleteName"></span><br>
 					<label for="completeName">Name: </label>
 					<input type="text" id="completeName" name="name" placeholder="Digit your complete name">
 					<br><br>
@@ -44,20 +44,26 @@
 					<input type="radio" name="gender" value="Male"> Male<br>
 					<input type="radio" name="gender" value="Female"> Female<br>
 					<input type="radio" name="gender" value="Other"> Other
+					
 					<br><br>
 
+					<span id="errorMaritalStatus"></span><br>
 					<label>Marital Status</label>
 					<select name="maritalStatus" id="maritalStatus">
+						<option value=""></option>
 						<option value="Single">Single</option>
 						<option value="Married">Married</option>
 						<option value="Divorced">Divorced</option>
 						<option value="Dating">Dating</option>
 						<option value="Widower">Widower</option>
 					</select>
+					
 					<br><br>
 
+                    <span id="errorNationality"></span><br>
 					<label>Nationality:</label>
 					<select name="nationality" id="nationality">
+						<option value=""></option>
 						<option value="Brazil">Brazil</option>
 						<option value="Americano">American</option>
 						<option value="Spain">Spain</option>
@@ -71,6 +77,7 @@
 						<option value="Germany">Germany</option>
 						<option value="Canada">Canada</option>
 					</select>
+
 					<br><br>
 					
 					<span id="errorNumberID"></span><br>
@@ -89,16 +96,16 @@
 
 				<fieldset class="js-accordion">
 
+					<span id="errorStreet"></span><br>
 					<label for="street">Street: </label>
-
 					<input type="text" name="street" id="street" placeholder="Digit your street"><br><br>
 					
+					<span id="errorNeighborhood"></span><br>
 					<label for="neighborhood">Neighborhood: </label>
-					
 					<input type="text" name="neighborhood" id="neighborhood" placeholder="Digit your neighborhood"><br><br>
 					
+					<span id="errorResidenceNumber"></span><br>
 					<label for="residenceNumber">Residence Number: </label>
-					
 					<input type="number" name="residenceNumber" id="residenceNumber" placeholder="Digit your residence number">
 
                     <br><br>
@@ -113,9 +120,12 @@
 
 				<fieldset class="js-accordion">
 
-                    <span id="errorPost"></span><br>
+                    <span id="errorPostName"></span><br>
+
 					<label>Post</label>
+
 					<br>
+
 					<input type="radio" value="Front-End Developer" name="post">
 					 Front-End Developer<br>
 					<input type="radio" value="Back-End Developer" name="post">
@@ -141,10 +151,13 @@
 					<input type="radio" name="experience" value="Pleno"> Pleno<br>
 					<input type="radio" name="experience" value="Senior"> Senior<br>
 					<input type="radio" name="experience" value="Yoda Master">  Yoda Master<br>
+					
 					<br><br>
 
+                    <span id="errorInterestRegion"></span><br>
 					<label for="interestRegion">Interest Region:  </label>
 					<select name="interestRegion" id="interestRegion">
+						<option value=""></option>
 						<option value="SP">SP</option>
 						<option value="RJ">RJ</option>
 						<option value="MG">MG</option>
@@ -154,6 +167,7 @@
 						<option value="AM">AM</option>
 						<option value="RS">RS</option>
 					</select>
+
 					<br><br>
 
                     <span id="errorSalaryPretension"></span><br>
@@ -162,7 +176,7 @@
                     
                     <br><br>
 
-					<input class="input_verify_forms" type="submit" onclick="FieldsetInterest.verifyFieldSetInterest()" value="Verify Interest Forms">
+					<input class="input_verify_forms" type="submit" onclick="FieldsetJobInterest.verifyFieldSetJobInterest()" value="Verify Interest Forms">
 
 				</fieldset>
 
@@ -176,19 +190,19 @@
 
 					<span id="errorSchooling"></span><br>
 
-					<input type="radio" name="schooling" value="Incomplete High School" id="incompleteHighSchool" onclick="FieldsetEducation.hiddenDivEducacao()">  Incomplete High School <br>
+					<input type="radio" name="schooling" value="Incomplete High School" id="incompleteHighSchool" onclick="FieldsetEducation.hiddenEducationDiv()">  Incomplete High School <br>
 
-					<input type="radio" name="schooling" value="Complete High School" id="completeHighSchool" onclick="FieldsetEducation.hiddenDivEducacao()">  Complete High School<br>
+					<input type="radio" name="schooling" value="Complete High School" id="completeHighSchool" onclick="FieldsetEducation.hiddenEducationDiv()">  Complete High School<br>
 
-					<input type="radio" name="schooling" value="Incomplete University" onclick="FieldsetEducation.showDivEducacao()">  Incomplete University<br>
+					<input type="radio" name="schooling" value="Incomplete University" onclick="FieldsetEducation.showEducationDiv()">  Incomplete University<br>
 
-					<input type="radio" name="schooling" value="Studying at University" onclick="FieldsetEducation.showDivEducacao()">  Studying at University<br>
+					<input type="radio" name="schooling" value="Studying at University" onclick="FieldsetEducation.showEducationDiv()">  Studying at University<br>
 
-					<input type="radio" name="schooling" value="Complete University" onclick="FieldsetEducation.showDivEducacao()">  Complete University Degree<br>
+					<input type="radio" name="schooling" value="Complete University" onclick="FieldsetEducation.showEducationDiv()">  Complete University Degree<br>
 
-					<input type="radio" name="schooling" value="Complete Master Degree" onclick="FieldsetEducation.showDivEducacao()">  Complete Master Degree</option><br>
+					<input type="radio" name="schooling" value="Complete Master Degree" onclick="FieldsetEducation.showEducationDiv()">  Complete Master Degree</option><br>
 
-					<input type="radio" name="schooling" value="Doctorate Degree" onclick="FieldsetEducation.showDivEducacao()">  Doctorate Degree
+					<input type="radio" name="schooling" value="Doctorate Degree" onclick="FieldsetEducation.showEducationDiv()">  Doctorate Degree
 
 					<br><br>
 
@@ -209,6 +223,7 @@
 					<label for="graduate">University Graduate: </label>
 					
 					<select name="graduate" id="graduate">
+						<option value=""></option>
 						<option value="2018">2023</option>
 						<option value="2017">2022</option>
 						<option value="2016">2021</option>
@@ -377,7 +392,16 @@
 		
 		<br>
 		
-		<script src="./js/classObject.js"></script>
+		<!-- Para usar ECMASCRIPT6+ usando Classes -->
+		<script src="./js/classes.js"></script>
+
+		<!-- Para usar Objects Natives (Modo Antigo)
+		<script src="./js/objects.js"></script>
+	    -->
+
+		<!-- Para Usar Functions Objects com Prototypes
+		<script src="./js/prototypes.js"></script>
+        -->
 
 	</body>
 
