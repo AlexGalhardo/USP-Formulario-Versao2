@@ -8,7 +8,7 @@
 		<meta name=viewport content="width=device-width, initial-scale=1">
 		<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="./css/style.css">
-		<link rel="icon" href="./images/favicon.png" type="image/png">
+		<link rel="icon" href="./favicon.png" type="image/png">
 	<head>
 
 	<body>
@@ -27,7 +27,7 @@
 
 			
 
-				<fieldset class="js-accordion">
+				<fieldset>
 					<span id="errorCompleteName"></span><br>
 					<label for="completeName">Name: </label>
 					<input type="text" id="completeName" name="name" placeholder="Digit your complete name">
@@ -86,7 +86,7 @@
                     
   					<br><br>
 
-                    <input class="input_verify_forms" type="submit" onclick="FieldsetPersonal.verifyFieldSetPersonal()" value="Verify Personal Forms">
+                    <input class="input_verify_forms" type="submit" onclick="verifyFieldSetPersonal()" value="Verify Personal Forms">
 
 				</fieldset>
 
@@ -94,7 +94,7 @@
 
 				<h3>Address Data</h3>
 
-				<fieldset class="js-accordion">
+				<fieldset>
 
 					<span id="errorStreet"></span><br>
 					<label for="street">Street: </label>
@@ -110,7 +110,7 @@
 
                     <br><br>
 
-					<input class="input_verify_forms" type="submit" onclick="FieldsetAddress.verifyFieldSetAddress()" value="Verify Address Forms">
+					<input class="input_verify_forms" type="submit" onclick="verifyFieldSetAddress()" value="Verify Address Forms">
 
 				</fieldset>
 
@@ -118,7 +118,7 @@
 
 				<h3>Job Interest</h3>
 
-				<fieldset class="js-accordion">
+				<fieldset>
 
                     <span id="errorPostName"></span><br>
 
@@ -176,7 +176,7 @@
                     
                     <br><br>
 
-					<input class="input_verify_forms" type="submit" onclick="FieldsetJobInterest.verifyFieldSetJobInterest()" value="Verify Interest Forms">
+					<input class="input_verify_forms" type="submit" onclick="verifyFieldSetJobInterest()" value="Verify Interest Forms">
 
 				</fieldset>
 
@@ -184,25 +184,25 @@
 				
 				<h3>Education</h3>
 
-				<fieldset id="fieldset_education" class="js-accordion">
+				<fieldset id="fieldset_education">
 
 					<label>Academic Education</label><br>
 
 					<span id="errorSchooling"></span><br>
 
-					<input type="radio" name="schooling" value="Incomplete High School" id="incompleteHighSchool" onclick="FieldsetEducation.hiddenEducationDiv()">  Incomplete High School <br>
+					<input type="radio" name="schooling" value="Incomplete High School" id="incompleteHighSchool" onclick="hiddenEducationDiv()">  Incomplete High School <br>
 
-					<input type="radio" name="schooling" value="Complete High School" id="completeHighSchool" onclick="FieldsetEducation.hiddenEducationDiv()">  Complete High School<br>
+					<input type="radio" name="schooling" value="Complete High School" id="completeHighSchool" onclick="hiddenEducationDiv()">  Complete High School<br>
 
-					<input type="radio" name="schooling" value="Incomplete University" onclick="FieldsetEducation.showEducationDiv()">  Incomplete University<br>
+					<input type="radio" name="schooling" value="Incomplete University" onclick="showEducationDiv()">  Incomplete University<br>
 
-					<input type="radio" name="schooling" value="Studying at University" onclick="FieldsetEducation.showEducationDiv()">  Studying at University<br>
+					<input type="radio" name="schooling" value="Studying at University" onclick="showEducationDiv()">  Studying at University<br>
 
-					<input type="radio" name="schooling" value="Complete University" onclick="FieldsetEducation.showEducationDiv()">  Complete University Degree<br>
+					<input type="radio" name="schooling" value="Complete University" onclick="showEducationDiv()">  Complete University Degree<br>
 
-					<input type="radio" name="schooling" value="Complete Master Degree" onclick="FieldsetEducation.showEducationDiv()">  Complete Master Degree</option><br>
+					<input type="radio" name="schooling" value="Complete Master Degree" onclick="showEducationDiv()">  Complete Master Degree</option><br>
 
-					<input type="radio" name="schooling" value="Doctorate Degree" onclick="FieldsetEducation.showEducationDiv()">  Doctorate Degree
+					<input type="radio" name="schooling" value="Doctorate Degree" onclick="showEducationDiv()">  Doctorate Degree
 
 					<br><br>
 
@@ -245,7 +245,7 @@
 				    
 				    <br><br>
 
-					<input class="input_verify_forms" type="submit" onclick="FieldsetEducation.verifyFieldSetEducation()" value="Verify Education Forms">
+					<input class="input_verify_forms" type="submit" onclick="verifyFieldSetEducation()" value="Verify Education Forms">
 
 					<br><br>
 
@@ -254,15 +254,15 @@
 				<br>
 
 				<h3>Professional Experiences</h3>
-				<fieldset id="fieldset_professional_experience" class="js-accordion">
+				<fieldset id="fieldset_professional_experience">
 
-					<input type="radio" name="hasExperience" value="Has Professional Experience" id="hasExperience" onclick="FieldsetProfessional.showButtonAddProfessionalExperience()"> Has Professional Experience
+					<input type="radio" name="hasExperience" value="Has Professional Experience" id="hasExperience" onclick="showButtonAddProfessionalExperience()"> Has Professional Experience
 					
-					<input type="radio" name="hasExperience" value="Doesn't Has Professional Experience" onclick="FieldsetProfessional.hiddenButtonAddProfessionalExperience()"> Doesn't Has Professional Experience
+					<input type="radio" name="hasExperience" value="Doesn't Has Professional Experience" onclick="hiddenButtonAddProfessionalExperience()" id="doesNotHasExperience" checked> Doesn't Has Professional Experience
 
 					<div id="button_add_professional_exp" hidden>
 						<br><br>
-						<input onclick="FieldsetProfessional.showDivAddExperienceData()" type="button" value="Add Professional Experience"></input>
+						<input onclick="showDivAddExperienceData()" type="button" value="Add Professional Experience"></input>
 					</div>
 					
 					<div id="div_has_professional_exp" hidden>
@@ -355,11 +355,11 @@
 						<label>Enter your main duties and responsibilities in the position held: </label><br>
 						<textarea rows="10" cols="70" name="jobResponsabilities" id="jobResponsabilities"></textarea>
 						<br><br>
-						<input type="submit" onclick="FieldsetProfessional.hiddenCompanyExperience()" value="Delete This Experience">
+						<input type="submit" onclick="hiddenCompanyExperience()" value="Delete This Experience">
 
 						<hr>
 
-						<input class="input_verify_forms" type="submit" onclick="FieldsetProfessional.verifyFieldsetProfessionalExperience()" value="Verify Professional Forms">
+						<input class="input_verify_forms" type="submit" onclick="verifyFieldsetProfessionalExperience()" value="Verify Professional Forms">
 
 					</div>
 
@@ -369,7 +369,7 @@
 				
 				<!--<input type="submit" class="button-app-main-page" value="Register Forms Data to PHP and MySQL">-->
 
-				<button onclick="ValidateCurriculumForms.verifyCurriculumForms()" class="button-app-main-page">Verify Forms JavaScript</button>
+				<button onclick="verifyCurriculumForms()" class="button-app-main-page">Verify Forms JavaScript</button>
 
 	        <br><br>
 		
@@ -391,17 +391,8 @@
 		</h4>
 		
 		<br>
-		
-		<!-- Para usar ECMASCRIPT6+ usando Classes -->
-		<script src="./js/classes.js"></script>
 
-		<!-- Para usar Objects Natives (Modo Antigo)
-		<script src="./js/objects.js"></script>
-	    -->
-
-		<!-- Para Usar Functions Objects com Prototypes
 		<script src="./js/prototypes.js"></script>
-        -->
 
 	</body>
 
