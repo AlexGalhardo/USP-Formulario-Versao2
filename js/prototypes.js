@@ -80,6 +80,21 @@ FieldsetPersonal.prototype = {
 	verifyIfEmailHasValue: function(){
         if(this.getElementEmail.value == ''){
             this.getSpanErrorEmail.innerHTML = "You need to enter a email!";
+        } else if (this.getElementEmail.value != ''){
+            /**
+             * Regex para verificar se o email é válido
+             *
+             * Referência: http://jsfiddle.net/ghvj4gy9/embedded/result,js/
+             */
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            /**
+             * Se o retorno da Regex for falso, avise o erro
+             */
+            if(!re.test(String(this.getElementEmail.value).toLowerCase())){
+                this.getSpanErrorEmail.innerHTML = "Enter a valid email!";
+            } else {
+                this.getSpanErrorEmail.innerHTML = "";
+            }
         } else {
             this.getSpanErrorEmail.innerHTML = "";
         }

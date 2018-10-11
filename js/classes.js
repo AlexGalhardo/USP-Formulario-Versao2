@@ -74,7 +74,22 @@ class FieldsetPersonal {
     verifyIfEmailHasValue(){
         if(this.getElementEmail.value == ''){
             this.getSpanErrorEmail.innerHTML = "You need to enter a email!";
-        } else {
+        } else if (this.getElementEmail.value != ''){
+            /**
+             * Regex para verificar se o email é válido
+             *
+             * Referência: http://jsfiddle.net/ghvj4gy9/embedded/result,js/
+             */
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            /**
+             * Se o retorno da Regex for falso, avise o erro
+             */
+            if(!re.test(String(this.getElementEmail.value).toLowerCase())){
+                this.getSpanErrorEmail.innerHTML = "Enter a valid email!";
+            } else {
+                this.getSpanErrorEmail.innerHTML = "";
+            }
+        }else {
             this.getSpanErrorEmail.innerHTML = "";
         }
     }
@@ -267,28 +282,19 @@ class FieldsetJobInterest {
 class FieldsetEducation {
   
     constructor(){
-    
         this.getElementDivEducation = document.getElementById("div_education");
-
         this.getElementsRadioSchooling = document.getElementsByName("schooling");
         this.elSpanErrorSchooling = document.getElementById("errorSchooling");
-        
         this.attrRadioSchoolingChecked = false;
-        
         this.textNodeEducation; // undefined
-
         this.elCourseName = document.getElementById("courseName");
         this.elSpanErrorCourseName = document.getElementById("errorCourseName");
-        
         this.getElementInstitutionName = document.getElementById("institutionName");
         this.elSpanErrorInstitutionName = document.getElementById("errorInstitutionName");
-        
         this.elGraduate = document.getElementById("graduate");
         this.elSpanErrorGraduate = document.getElementById("errorGraduate");
-
         this.getElementIncompleteSchool = document.getElementById("incompleteHighSchool");
         this.getElementCompleteSchool = document.getElementById("completeHighSchool");
-
         this.newElementParagraphSchoolingRegistered = document.createElement("p");
         this.newElementParagraphGraduateYearRegistered = document.createElement("p");
         this.newElementParagraphCourseNameRegistered = document.createElement("p");
@@ -302,7 +308,6 @@ class FieldsetEducation {
                 break;
             }
         }
-        
         if(!this.attrRadioSchoolingChecked){
             document.getElementById("errorSchooling").innerHTML = "You need to choose a option below!";
         }
@@ -315,9 +320,9 @@ class FieldsetEducation {
     }
 
     verifyIfGraduateIsChecked(){
-      if(this.elGraduate.value == ''){
-          this.elSpanErrorGraduate.innerHTML = "You need to check some option below!";
-      }
+        if(this.elGraduate.value == ''){
+            this.elSpanErrorGraduate.innerHTML = "You need to check some option below!";
+        }
     }
 
     verifyIfInstitutionNameHasValue(){

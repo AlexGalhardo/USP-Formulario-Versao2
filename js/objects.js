@@ -14,19 +14,25 @@ function cleanDivJavaScriptElementsRegistered(){
 
 // function object ValidateCurriculumForms static method
 function verifyCurriculumForms(){
+
     verifyFieldSetPersonal();
+    FieldsetPersonal.showElementsPersonalRegistered();
     stringifyAndStoragePersonalFieldsetValues();
 
     verifyFieldSetAddress();
+    FieldsetAddress.showElementsAddressRegistered();
     stringifyAndStorageAddressFieldsetValues();
 
     verifyFieldSetJobInterest();
+    FieldsetJobInterest.showElementsJobInterestRegistered();
     stringifyAndStorageJobInterestFieldsetValues();
 
     verifyFieldSetEducation();
+    FieldsetEducation.showElementsEducationRegistered();
     stringifyAndStorageEducationFieldsetValues();
 
     verifyFieldsetProfessionalExperience();
+    FieldsetProfessional.showElementsProfessionalExperienceRegistered();
     stringifyAndStorageProfessionalFieldsetValues();
 }
 
@@ -35,6 +41,7 @@ function verifyCurriculumForms(){
  */
 // when I create a object like this, I can't use this format like a class
 const FieldsetPersonal = {
+
 	getElementCompleteName: document.getElementById("completeName"),
 	getSpanErrorCompleteName: document.getElementById("errorCompleteName"),
     getElementEmail: document.getElementById("email"),
@@ -49,6 +56,14 @@ const FieldsetPersonal = {
     getSpanErrorNationality: document.getElementById("errorNationality"),
     getElementNumberID: document.getElementById("numberID"),
     getSpanErrorNumberID: document.getElementById("errorNumberID"),
+    newElementParagraphCompleteName: document.createElement("p"),
+    newElementParagraphEmail: document.createElement("p"),
+    newElementParagraphCellphone: document.createElement("p"),
+    newElementParagraphGender: document.createElement("p"),
+    newElementParagraphMaritalStatus: document.createElement("p"),
+    newElementParagraphNationality: document.createElement("p"),
+    newElementParagraphNumberID: document.createElement("p"),
+
     verifyIfCompleteNameHasValue(){
 		if(this.getElementCompleteName.value == ''){
             this.getSpanErrorCompleteName.innerHTML = "You need to enter a name!";
@@ -59,7 +74,22 @@ const FieldsetPersonal = {
 	verifyIfEmailHasValue(){
         if(this.getElementEmail.value == ''){
             this.getSpanErrorEmail.innerHTML = "You need to enter a email!";
-        } else {
+        } else if (this.getElementEmail.value != ''){
+			/**
+			 * Regex para verificar se o email é válido
+			 *
+			 * Referência: http://jsfiddle.net/ghvj4gy9/embedded/result,js/
+			 */
+			var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			/**
+			 * Se o retorno da Regex for falso, avise o erro
+			 */
+			if(!re.test(String(this.getElementEmail.value).toLowerCase())){
+				this.getSpanErrorEmail.innerHTML = "Enter a valid email!";
+			} else {
+				this.getSpanErrorEmail.innerHTML = ""
+			}
+		} else {
             this.getSpanErrorEmail.innerHTML = "";
         }
     },
@@ -105,6 +135,35 @@ const FieldsetPersonal = {
         } else {
             this.getSpanErrorNumberID.innerHTML = "";
         }
+    },
+    showElementsPersonalRegistered(){
+    	// company name
+        this.newElementParagraphCompleteName.innerHTML = `Complete Name: ${this.getElementCompleteName.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphCompleteName);
+
+        // start month
+        this.newElementParagraphEmail.innerHTML = `Email: ${this.getElementEmail.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphEmail);
+
+        // end month
+        this.newElementParagraphCellphone.innerHTML = `Cellhpone: ${this.getElementCellphone.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphCellphone);
+
+        // start year
+        this.newElementParagraphGender.innerHTML = `Gender: ${this.getElementsRadioGender.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphGender);
+
+        // end year
+        this.newElementParagraphMaritalStatus.innerHTML = `Marital Status: ${this.getElementsOptionMaritalStatus.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphMaritalStatus);
+
+        // bussines segment
+        this.newElementParagraphNationality.innerHTML = `Nationality: ${this.getElementsOptionNationality.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphNationality);
+
+        // position held
+        this.newElementParagraphNumberID.innerHTML = `Number ID: ${this.getElementNumberID.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphNumberID);
     }
 }
 
@@ -131,12 +190,20 @@ function stringifyAndStoragePersonalFieldsetValues(){
  * ADDRESS
  */
 const FieldsetAddress = {
+
 	getElementStreet: document.getElementById("street"),
     getSpanErrorStreet: document.getElementById("errorStreet"),
+
     getElementNeighborhood: document.getElementById("neighborhood"),
     getSpanErrorNeighborhood: document.getElementById("errorNeighborhood"),
+
     getElementResidenceNumber: document.getElementById("residenceNumber"),
     getSpanErrorResidenceNumber: document.getElementById("errorResidenceNumber"),
+
+    newElementParagraphStreet: document.createElement("p"),
+    newElementParagraphNeighborhood: document.createElement("p"),
+    newElementParagraphResidenceNumber: document.createElement("p"),
+
     verifyIfStreetHasValue(){
         if(this.getElementStreet.value == ''){
             this.getSpanErrorStreet.innerHTML = "You need to enter a street name!";
@@ -157,6 +224,19 @@ const FieldsetAddress = {
         } else {
         	this.getSpanErrorResidenceNumber.innerHTML = "";
         }
+    },
+    showElementsAddressRegistered(){
+    	// company name
+        this.newElementParagraphStreet.innerHTML = `Street: ${this.getElementStreet.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphStreet);
+
+        // start month
+        this.newElementParagraphNeighborhood.innerHTML = `Neighborhood: ${this.getElementNeighborhood.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphNeighborhood);
+
+        // end month
+        this.newElementParagraphResidenceNumber.innerHTML = `Residence Number: ${this.getElementResidenceNumber.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphResidenceNumber);
     }
 }
 
