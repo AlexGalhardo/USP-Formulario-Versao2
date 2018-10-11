@@ -536,7 +536,7 @@ const FieldsetProfessional = {
 
     businessSegmentChecked: false,
     getElementHasProfessionalExperience: document.getElementById("hasExperience"),
-    getElementDoestNotHasProfessionalExperience: document.getElementById("doesNotHasExperience"),
+    getElementDoesNotHasProfessionalExperience: document.getElementById("doesNotHasExperience"),
 
     getElementButtonAddExperience: document.getElementById("button_add_professional_exp"),
     getElementDivHasProfessionalExperience: document.getElementById("div_has_professional_exp"),
@@ -555,7 +555,7 @@ const FieldsetProfessional = {
     verifyProfessionalExperienceValues(){
 
         // candidate has professional experience?
-        if(!this.getElementDoestNotHasProfessionalExperience.checked){
+        if(!this.getElementDoesNotHasProfessionalExperience.checked){
             
         	// company name has value?
             if(this.getElementCompanyName.value == ''){
@@ -594,36 +594,29 @@ const FieldsetProfessional = {
             }
         } 
     },
-    
+
     showElementsProfessionalExperienceRegistered(){
 
-        if(!this.getElementDoestNotHasProfessionalExperience.checked){
+        if(!this.getElementDoesNotHasProfessionalExperience.checked){
 
-            // has professional experience
             this.newElementParagraphHasExperiencie.innerHTML = "<strong>The candidate HAS professional experience.</strong> ";
             ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphHasExperiencie);
             
-            // company name
             this.newElementParagraphCompanyName.innerHTML = `<strong>Company Name:</strong> ${this.getElementCompanyName.value}`;
             ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphCompanyName);
 
-            // start month
             this.newElementParagraphStartMonth.innerHTML = `<strong>Start Month:</strong> ${this.getElementStartMonth.value}`;
             ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphStartMonth);
 
-            // start year
             this.newElementParagraphStartYear.innerHTML = `<strong>Start Year:</strong> ${this.getElementStartYear.value}`;
             ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphStartYear);
 
-            // end month
             this.newElementParagraphEndMonth.innerHTML = `<strong>End Month:</strong> ${this.getElementEndMonth.value}`;
             ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphEndMonth);
 
-            // end year
             this.newElementParagraphEndYear.innerHTML = `<strong>End Year:</strong> ${this.getElementEndYear.value}`;
             ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphEndYear);
 
-            // bussines segment
             for(let i = 0; i < this.getElementsBusinessSegment.length; i++){
                 if(this.getElementsBusinessSegment[i].checked){
                     this.newElementParagraphBusinessSegment.innerHTML = `<strong>Business Segment:</strong> ${this.getElementsBusinessSegment[i].value}`;
@@ -632,11 +625,9 @@ const FieldsetProfessional = {
                 }
             }
             
-            // position held
             this.newElementParagraphPositionHeld.innerHTML = `<strong>Position Held:</strong> ${this.getElementPositionHeld.value}`;
             ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphPositionHeld);
 
-            // job responsabilites
             this.newElementParagraphJobResponsabilites.innerHTML = `<strong>Job Responsabilites:</strong> ${this.getElementJobResponsabilities.value}`;
             ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphJobResponsabilites);
 
@@ -654,7 +645,7 @@ function showButtonAddProfessionalExperience(){
 }
 
 function hiddenButtonAddProfessionalExperience(){
-    if(FieldsetProfessional.getElementDoestNotHasProfessionalExperience.checked){
+    if(FieldsetProfessional.getElementDoesNotHasProfessionalExperience.checked){
     	hiddenCompanyExperience();
         FieldsetProfessional.getElementButtonAddExperience.setAttribute("hidden", "true");
     }

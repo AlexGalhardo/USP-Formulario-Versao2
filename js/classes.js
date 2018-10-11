@@ -7,7 +7,7 @@ class ValidateCurriculumForms {
     }
 
     removeAttributeHidden(){
-        this.newTopDivElementsRegistered.removeAttribute("hidden");
+        newTopDivElementsRegistered.removeAttribute("hidden");
     }
 
     static cleanDivJavaScriptElementsRegistered(){
@@ -20,19 +20,27 @@ class ValidateCurriculumForms {
     }
 
     static verifyCurriculumForms(){
+
+        ValidateCurriculumForms.cleanDivJavaScriptElementsRegistered();
+
         FieldsetPersonal.verifyFieldSetPersonal();
+        FieldsetPersonal.showElementsPersonalRegistered();
         FieldsetPersonal.stringifyAndStoragePersonalFieldsetValues();
 
         FieldsetAddress.verifyFieldSetAddress();
+        FieldsetAddress.showElementsAddressRegistered();
         FieldsetAddress.stringifyAndStorageAddressFieldsetValues();
 
         FieldsetJobInterest.verifyFieldSetJobInterest();
+        FieldsetJobInterest.showElementsJobInterestRegistered();
         FieldsetJobInterest.stringifyAndStorageJobInterestFieldsetValues();
 
         FieldsetEducation.verifyFieldSetEducation();
+        FieldsetEducation.showElementsEducationRegistered();
         FieldsetEducation.stringifyAndStorageEducationFieldsetValues();
 
         FieldsetProfessional.verifyFieldsetProfessionalExperience();
+        FieldsetProfessional.showElementsProfessionalExperienceRegistered();
         FieldsetProfessional.stringifyAndStorageProfessionalFieldsetValues();
     }
 }
@@ -61,6 +69,14 @@ class FieldsetPersonal {
 
         this.getElementNumberID = document.getElementById("numberID");
         this.getSpanErrorNumberID = document.getElementById("errorNumberID");
+
+        this.newElementParagraphCompleteName = document.createElement("p");
+        this.newElementParagraphEmail = document.createElement("p");
+        this.newElementParagraphCellphone = document.createElement("p");
+        this.newElementParagraphGender = document.createElement("p");
+        this.newElementParagraphMaritalStatus = document.createElement("p");
+        this.newElementParagraphNationality = document.createElement("p");
+        this.newElementParagraphNumberID = document.createElement("p");
     }
 
     verifyIfCompleteNameHasValue(){
@@ -137,30 +153,74 @@ class FieldsetPersonal {
     }
 
     verifyIfNumberIDHasValue(){
+        
         if(this.getElementNumberID.value == ''){
             this.getSpanErrorNumberID.innerHTML = "You need to enter your number ID!";
+        } 
+        else if (this.getElementNumberID.value.toString().length < 11 
+                  || 
+                  this.getElementNumberID.value.toString().length > 11){
+
+            this.getSpanErrorNumberID.innerHTML = "You need digit a valid numberID with at least 11 characters!";
+        
         } else {
             this.getSpanErrorNumberID.innerHTML = "";
         }
     }
 
     static verifyFieldSetPersonal(){
-        const objectFieldsetPersonal = new FieldsetPersonal();
-        objectFieldsetPersonal.verifyIfCompleteNameHasValue();
-        objectFieldsetPersonal.verifyIfEmailHasValue();
-        objectFieldsetPersonal.verifyIfCellphoneHasValue();
-        objectFieldsetPersonal.verifyIfGenderIsChecked();
-        objectFieldsetPersonal.verifyIfMaritalStatusIsSelected();
-        objectFieldsetPersonal.verifyIfNationalityWasSelected();
-        objectFieldsetPersonal.verifyIfNumberIDHasValue();
+        try {
+            const objectFieldsetPersonal = new FieldsetPersonal();
+            objectFieldsetPersonal.verifyIfCompleteNameHasValue();
+            objectFieldsetPersonal.verifyIfEmailHasValue();
+            objectFieldsetPersonal.verifyIfCellphoneHasValue();
+            objectFieldsetPersonal.verifyIfGenderIsChecked();
+            objectFieldsetPersonal.verifyIfMaritalStatusIsSelected();
+            objectFieldsetPersonal.verifyIfNationalityWasSelected();
+            objectFieldsetPersonal.verifyIfNumberIDHasValue();
+            FieldsetPersonal.showElementsPersonalRegistered();
+        } catch(error){
+            console.log(error);
+        }
     }
 
     static stringifyAndStoragePersonalFieldsetValues(){
-        let objectFieldsetPersonal = new FieldsetPersonal();
+        const objectFieldsetPersonal = new FieldsetPersonal();
         let PersonalValuesJSON = JSON.stringify(objectFieldsetPersonal);
         localStorage.setItem("PersonalValuesJSON", PersonalValuesJSON);
     }
+
+    static showElementsPersonalRegistered(){
+
+        const objectFieldsetPersonal = new FieldsetPersonal();
+        const objectValidateCurriculumForms = new ValidateCurriculumForms();
+
+        objectFieldsetPersonal.newElementParagraphCompleteName.innerHTML = `<strong>Complete Name:</strong> ${objectFieldsetPersonal.getElementCompleteName.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetPersonal.newElementParagraphCompleteName);
+
+        objectFieldsetPersonal.newElementParagraphEmail.innerHTML = `<strong>Email:</strong> ${objectFieldsetPersonal.getElementEmail.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetPersonal.newElementParagraphEmail);
+
+        objectFieldsetPersonal.newElementParagraphCellphone.innerHTML = `<strong>Cellhpone:</strong> ${objectFieldsetPersonal.getElementCellphone.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetPersonal.newElementParagraphCellphone);
+
+        objectFieldsetPersonal.newElementParagraphGender.innerHTML = `<strong>Gender:</strong> ${objectFieldsetPersonal.getElementsRadioGender.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetPersonal.newElementParagraphGender);
+
+        objectFieldsetPersonal.newElementParagraphMaritalStatus.innerHTML = `<strong>Marital Status:</strong> ${objectFieldsetPersonal.getElementsOptionMaritalStatus.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetPersonal.newElementParagraphMaritalStatus);
+
+        objectFieldsetPersonal.newElementParagraphNationality.innerHTML = `<strong>Nationality:</strong> ${objectFieldsetPersonal.getElementsOptionNationality.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetPersonal.newElementParagraphNationality);
+
+        objectFieldsetPersonal.newElementParagraphNumberID.innerHTML = `<strong>Number ID:</strong> ${objectFieldsetPersonal.getElementNumberID.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetPersonal.newElementParagraphNumberID);
+    }
 }
+
+/**
+ * ADDRESS
+ */
 
 class FieldsetAddress {
 
@@ -173,6 +233,10 @@ class FieldsetAddress {
 
         this.getElementResidenceNumber = document.getElementById("residenceNumber");
         this.getSpanErrorResidenceNumber = document.getElementById("errorResidenceNumber");
+
+        this.newElementParagraphStreet = document.createElement("p");
+        this.newElementParagraphNeighborhood = document.createElement("p");
+        this.newElementParagraphResidenceNumber = document.createElement("p");
     }
 
     verifyIfStreetHasValue(){
@@ -201,25 +265,58 @@ class FieldsetAddress {
     }
 
     static stringifyAndStorageAddressFieldsetValues(){
-        let objectFieldsetAddress = new FieldsetAddress();
+        const objectFieldsetAddress = new FieldsetAddress();
         let AddressValuesJSON = JSON.stringify(objectFieldsetAddress);
         localStorage.setItem("AddressValuesJSON", AddressValuesJSON);
     }
+
+    static showElementsAddressRegistered(){
+
+        const objectFieldsetAddress = new FieldsetAddress();
+        const objectValidateCurriculumForms = new ValidateCurriculumForms();
+
+        objectFieldsetAddress.newElementParagraphStreet.innerHTML = `<strong>Street:</strong> ${objectFieldsetAddress.getElementStreet.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetAddress.newElementParagraphStreet);
+
+        objectFieldsetAddress.newElementParagraphNeighborhood.innerHTML = `<strong>Neighborhood:</strong> ${objectFieldsetAddress.getElementNeighborhood.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetAddress.newElementParagraphNeighborhood);
+
+        objectFieldsetAddress.newElementParagraphResidenceNumber.innerHTML = `<strong>Residence Number:</strong> ${objectFieldsetAddress.getElementResidenceNumber.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetAddress.newElementParagraphResidenceNumber);
+    }
 }
 
+
+
+/**
+ * JOB INTEREST
+ */
 class FieldsetJobInterest {
 
     constructor(){
-        this.getElementsRadioNamePost = document.getElementsByName("post");
+
+        this.getElementsRadioPostName = document.getElementsByName("post");
+        this.getSpanErrorNamePost = document.getElementById("errorPostName");
+
         this.getElementsRadioExperience = document.getElementsByName("experience");
+        this.getSpanErrorExperience = document.getElementById("errorPostExperience");
+
         this.getElementsOptionInterestRegion = document.getElementById("interestRegion");
+        this.getSpanErrorInterestRegion = document.getElementById("errorInterestRegion");
+
         this.getElementSalaryPretension = document.getElementById("salaryPretension");
+        this.getSpanErrorSalaryPretension = document.getElementById("errorSalaryPretension");
+
+        this.newElementParagraphPostName = document.createElement("p");
+        this.newElementParagraphExperience = document.createElement("p");
+        this.newElementParagraphInterestRegion = document.createElement("p");
+        this.newElementParagraphSalaryPretension = document.createElement("p");
     }
 
     verifyIfPostNameIsChecked(){
         let postNameChecked = false;
-        for(let i = 0; i < this.getElementsRadioNamePost.length; i++){
-            if(this.getElementsRadioNamePost[i].checked){
+        for(let i = 0; i < this.getElementsRadioPostName.length; i++){
+            if(this.getElementsRadioPostName[i].checked){
                 postNameChecked = true;
                 break;
             }
@@ -263,7 +360,6 @@ class FieldsetJobInterest {
     }
 
     static verifyFieldSetJobInterest(){
-        ValidateCurriculumForms.cleanDivJavaScriptElementsRegistered();
         const objectFieldsetJobInterest = new FieldsetJobInterest();
         objectFieldsetJobInterest.verifyIfPostNameIsChecked();
         objectFieldsetJobInterest.verifyIfExperienceIsChecked();
@@ -272,9 +368,37 @@ class FieldsetJobInterest {
     }
 
     static stringifyAndStorageJobInterestFieldsetValues(){
-        let objectFieldsetJobInterest = new FieldsetJobInterest();
+        const objectFieldsetJobInterest = new FieldsetJobInterest();
         let JobInterestValuesJSON = JSON.stringify(objectFieldsetJobInterest);
         localStorage.setItem("JobInterestValuesJSON", JobInterestValuesJSON);
+    }
+
+    static showElementsJobInterestRegistered(){
+
+        const objectFieldsetJobInterest = new FieldsetJobInterest();
+        const objectValidateCurriculumForms = new ValidateCurriculumForms();
+
+        for(let i = 0; i < objectFieldsetJobInterest.getElementsRadioPostName.length; i++){
+            if(objectFieldsetJobInterest.getElementsRadioPostName[i].checked){
+                objectFieldsetJobInterest.newElementParagraphPostName.innerHTML = `<strong>Post Name:</strong> ${objectFieldsetJobInterest.getElementsRadioPostName[i].value}`;
+                objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetJobInterest.newElementParagraphPostName);
+                break;
+            }
+        }
+        
+        for(let i = 0; i < objectFieldsetJobInterest.getElementsRadioExperience.length; i++){
+            if(objectFieldsetJobInterest.getElementsRadioExperience[i].checked){
+                objectFieldsetJobInterest.newElementParagraphExperience.innerHTML = `<strong>Experience:</strong> ${objectFieldsetJobInterest.getElementsRadioExperience[i].value}`;
+                objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetJobInterest.newElementParagraphExperience);
+                break;
+            }
+        }
+
+        objectFieldsetJobInterest.newElementParagraphInterestRegion.innerHTML = `<strong>Interest Region:</strong> ${objectFieldsetJobInterest.getElementsOptionInterestRegion.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetJobInterest.newElementParagraphInterestRegion);
+    
+        objectFieldsetJobInterest.newElementParagraphSalaryPretension.innerHTML = `<strong>Salary Pretension:</strong> ${objectFieldsetJobInterest.getElementSalaryPretension.value} / month`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetJobInterest.newElementParagraphSalaryPretension);
     }
 }
 
@@ -282,19 +406,26 @@ class FieldsetJobInterest {
 class FieldsetEducation {
   
     constructor(){
+
         this.getElementDivEducation = document.getElementById("div_education");
+
         this.getElementsRadioSchooling = document.getElementsByName("schooling");
         this.elSpanErrorSchooling = document.getElementById("errorSchooling");
+
         this.attrRadioSchoolingChecked = false;
-        this.textNodeEducation; // undefined
+
         this.elCourseName = document.getElementById("courseName");
         this.elSpanErrorCourseName = document.getElementById("errorCourseName");
+
         this.getElementInstitutionName = document.getElementById("institutionName");
         this.elSpanErrorInstitutionName = document.getElementById("errorInstitutionName");
+
         this.elGraduate = document.getElementById("graduate");
         this.elSpanErrorGraduate = document.getElementById("errorGraduate");
+
         this.getElementIncompleteSchool = document.getElementById("incompleteHighSchool");
         this.getElementCompleteSchool = document.getElementById("completeHighSchool");
+
         this.newElementParagraphSchoolingRegistered = document.createElement("p");
         this.newElementParagraphGraduateYearRegistered = document.createElement("p");
         this.newElementParagraphCourseNameRegistered = document.createElement("p");
@@ -333,92 +464,98 @@ class FieldsetEducation {
       }
     }
 
-    // this method shows all the values registered in top div
-    showElementsEducationRegistered(){
-
-      let objectValidateCurriculumForms = new ValidateCurriculumForms();
-
-      // show radio education checked
-      for(let i = 0; i <  this.getElementsRadioSchooling.length; i++){
-          if(this.getElementsRadioSchooling[i].checked){
-              this.newElementParagraphSchoolingRegistered.innerHTML = `Schooling: ${this.getElementsRadioSchooling.value}`;
-              break;
-          }
-      }
-      objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphSchoolingRegistered);
-
-      // show graduate year value
-      this.newElementParagraphGraduateYearRegistered.innerHTML = `Graduate Year: ${this.elGraduate.value}`;
-      objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphGraduateYearRegistered);
-
-      // show graduate Course Name and Institution Name
-      if(!this.getElementIncompleteSchool.checked || 
-         !this.getElementCompleteSchool.checked){
-
-          // show course name registered
-          this.newElementParagraphSchoolingRegistered.innerHTML = `Course Name: ${this.elCourseName.value}`;
-          objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphSchoolingRegistered);
-
-          // show institution name registered
-          this.newElementPagragraphInstitutionNameRegistered.innerHTML = `Instituion Name:  ${this.getElementInstitutionName.value}`;
-          objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementPagragraphInstitutionNameRegistered);
-      }
-    }
-
     static showEducationDiv(){
-      let objectFieldsetEducation = new FieldsetEducation();
-      if(!objectFieldsetEducation.getElementIncompleteSchool.checked && 
-         !objectFieldsetEducation.getElementCompleteSchool.checked){
-          objectFieldsetEducation.getElementDivEducation.removeAttribute("hidden");
-      }
+
+        const objectFieldsetEducation = new FieldsetEducation();
+        
+        if(!objectFieldsetEducation.getElementIncompleteSchool.checked && 
+           !objectFieldsetEducation.getElementCompleteSchool.checked){
+            
+            objectFieldsetEducation.getElementDivEducation.removeAttribute("hidden");
+        
+        }
     }
 
     static hiddenEducationDiv(){
-      let objectFieldsetEducation = new FieldsetEducation();
-      objectFieldsetEducation.getElementDivEducation.setAttribute("hidden", "true");
+        const objectFieldsetEducation = new FieldsetEducation();
+        objectFieldsetEducation.getElementDivEducation.setAttribute("hidden", "true");
     }
 
     static verifyFieldSetEducation(){
-      const objectFieldsetEducation = new FieldsetEducation();
-      objectFieldsetEducation.verifyIfElementRadioEducationIsChecked();
-      objectFieldsetEducation.verifyIfGraduateIsChecked();
-      objectFieldsetEducation.verifyIfInstitutionNameHasValue();
-      objectFieldsetEducation.verifyIfCourseNameHasValue();
-      objectFieldsetEducation.showElementsEducationRegistered();
+        const objectFieldsetEducation = new FieldsetEducation();
+        objectFieldsetEducation.verifyIfElementRadioEducationIsChecked();
+        objectFieldsetEducation.verifyIfGraduateIsChecked();
+        objectFieldsetEducation.verifyIfInstitutionNameHasValue();
+        objectFieldsetEducation.verifyIfCourseNameHasValue();
+        FieldsetEducation.showElementsEducationRegistered();
+    }
+
+    static showElementsEducationRegistered(){
+
+        const objectFieldsetEducation = new FieldsetEducation();
+        const objectValidateCurriculumForms = new ValidateCurriculumForms();
+
+        for(let i = 0; i <  objectFieldsetEducation.getElementsRadioSchooling.length; i++){
+            if(objectFieldsetEducation.getElementsRadioSchooling[i].checked){
+                objectFieldsetEducation.newElementParagraphSchoolingRegistered.innerHTML = `<strong>Schooling</strong>: ${objectFieldsetEducation.getElementsRadioSchooling.value}`;
+                break;
+            }
+        }
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetEducation.newElementParagraphSchoolingRegistered);
+
+        objectFieldsetEducation.newElementParagraphGraduateYearRegistered.innerHTML = `<strong>Graduate Year</strong>: ${objectFieldsetEducation.elGraduate.value}`;
+        objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetEducation.newElementParagraphGraduateYearRegistered);
+
+        if(!objectFieldsetEducation.getElementIncompleteSchool.checked || 
+            !objectFieldsetEducation.getElementCompleteSchool.checked){
+
+            objectFieldsetEducation.newElementParagraphSchoolingRegistered.innerHTML = `<strong>Course Name</strong>: ${objectFieldsetEducation.elCourseName.value}`;
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetEducation.newElementParagraphSchoolingRegistered);
+
+            objectFieldsetEducation.newElementPagragraphInstitutionNameRegistered.innerHTML = `<strong>Institution Name</strong>:  ${objectFieldsetEducation.getElementInstitutionName.value}`;
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetEducation.newElementPagragraphInstitutionNameRegistered);
+        }
     }
 
     static stringifyAndStorageEducationFieldsetValues(){
-      let objectFieldsetEducation = new FieldsetEducation();
-      let EducationValuesJSON = JSON.stringify(objectFieldsetEducation);
-      localStorage.setItem("EducationValuesJSON", EducationValuesJSON);
+        let objectFieldsetEducation = new FieldsetEducation();
+        let EducationValuesJSON = JSON.stringify(objectFieldsetEducation);
+        localStorage.setItem("EducationValuesJSON", EducationValuesJSON);
     }
 }
 
 
+/**
+ * PROFESSIONAL
+ */
 class FieldsetProfessional {
 
     constructor(){
 
         this.getElementCompanyName = document.getElementById("companyName");
+        this.getSpanErrorCompanyName = document.getElementById("errorCompanyName");
+
         this.getElementStartMonth = document.getElementsByName("monthStart")[0];
         this.getElementEndMonth = document.getElementsByName("endMonth")[0];
         this.getElementStartYear = document.getElementsByName("yearStart")[0];
         this.getElementEndYear = document.getElementsByName("endYear")[0];
-        this.getElementsBusinessSegment = document.getElementsByName("businessSegment");
-        this.getElementPositionHeld = document.getElementById("positionHeld");
-        this.getElementJobResponsabilities = document.getElementById("jobResponsabilities");
 
-        this.getSpanErrorPositionHeld = document.getElementById("errorPositionHeld");
+        this.getElementsBusinessSegment = document.getElementsByName("businessSegment");
         this.getSpanErrorBusinessSegment = document.getElementById("errorBusinessSegment");
-        this.getSpanErrorJobResponsabilites = document.getElementById("jobResponsabilities");
+
+        this.getElementPositionHeld = document.getElementById("positionHeld");
+        this.getSpanErrorPositionHeld = document.getElementById("errorPositionHeld");
+
+        this.getElementJobResponsabilities = document.getElementById("jobResponsabilities");
+        this.getSpanErrorJobResponsabilites = document.getElementById("errorJobResponsabilities");
 
         this.businessSegmentChecked = false;
 
         this.getElementHasProfessionalExperience = document.getElementById("hasExperience");
+        this.getElementDoesNotHasProfessionalExperience = document.getElementById("doesNotHasExperience");
         this.getElementButtonAddExperience = document.getElementById("button_add_professional_exp");
         this.getElementDivHasProfessionalExperience = document.getElementById("div_has_professional_exp");;
 
-        // new paragraph elements who will show in top div
         this.newElementParagraphHasProfessionalExperience = document.createElement("p");
         this.newElementParagraphCompanyName = document.createElement("p");
         this.newElementParagraphStartMonth = document.createElement("p");
@@ -439,26 +576,27 @@ class FieldsetProfessional {
     }
 
     static hiddenButtonAddProfessionalExperience(){
-        let objectFieldsetProfessional = new FieldsetProfessional();
-        if(!objectFieldsetProfessional.getElementHasProfessionalExperience.checked){
+        const objectFieldsetProfessional = new FieldsetProfessional();
+        if(objectFieldsetProfessional.getElementDoesNotHasProfessionalExperience.checked){
+            FieldsetProfessional.hiddenCompanyExperience();
             objectFieldsetProfessional.getElementButtonAddExperience.setAttribute("hidden", "true");
         }
     }
 
     static hiddenButtonAddExperinceData(){
-        let objectFieldsetProfessional = new FieldsetProfessional();
+        const objectFieldsetProfessional = new FieldsetProfessional();
         objectFieldsetProfessional.getElementDivHasProfessionalExperience.setAttribute("hidden", "true");
     }
 
     static showDivAddExperienceData(){
-        let objectFieldsetProfessional = new FieldsetProfessional();
+        const objectFieldsetProfessional = new FieldsetProfessional();
         objectFieldsetProfessional.getElementDivHasProfessionalExperience.removeAttribute("hidden");
     }
 
     static verifyFieldsetProfessionalExperience(){
         const objectFieldsetProfessional = new FieldsetProfessional();
         objectFieldsetProfessional.verifyProfessionalExperienceValues();
-        objectFieldsetProfessional.showElementsProfessionalExperienceRegistered();
+        FieldsetProfessional.showElementsProfessionalExperienceRegistered();
     }
 
     static hiddenCompanyExperience(){
@@ -469,16 +607,19 @@ class FieldsetProfessional {
     verifyProfessionalExperienceValues(){
 
         // candidate has professional experience?
-        if(this.getElementHasProfessionalExperience.checked){
+        if(!this.getElementDoesNotHasProfessionalExperience.checked){
             
-            // position held has value?
-            if(this.getElementPositionHeld.value == ''){
-                this.getSpanErrorPositionHeld.innerHTML = "Você precisa adicionar o último cargo que ocupou!";
+            if(this.getElementCompanyName.value == ''){
+                this.getSpanErrorCompanyName.innerHTML = "You need enter the name of the last company you worked in";
+            } else {
+                this.getSpanErrorCompanyName.innerHTML = "";
             }
 
-            // company name has value?
-            if(this.getElementCompanyName.value == ''){
-                this.getSpanErrorPositionHeld.innerHTML = "Você precisa adicionar o nome da última em que trabalhou!";
+            // position held has value?
+            if(this.getElementPositionHeld.value == ''){
+                this.getSpanErrorPositionHeld.innerHTML = "You need to enter a position held!";
+            } else {
+                this.getSpanErrorPositionHeld.innerHTML = "";
             }
 
             // business segment checked?
@@ -489,65 +630,70 @@ class FieldsetProfessional {
                 }
             }
             if(!this.businessSegmentChecked){
-                this.getSpanErrorBusinessSegment.innerHTML = "Você precisa selecionar um dos segmentos abaixo!";
-            } 
+                this.getSpanErrorBusinessSegment.innerHTML = "You need to choose one option below!";
+            } else {
+                this.getSpanErrorBusinessSegment.innerHTML = "";
+            }
 
             // job responsabilites has value?
             if(this.getElementJobResponsabilities.value == ''){
-                this.getSpanErrorJobResponsabilites.innerHTML = "Por favor, diga nos um pouco mais das suas atribuições e responsabilidades do último cargo exercido."
+                this.getSpanErrorJobResponsabilites.innerHTML = "Please tell us a little more about your duties and responsibilities for the last position held."
             } else if(this.getElementJobResponsabilities.value.toString().length < 50){
-                this.getSpanErrorJobResponsabilites.innerHTML = "Digite uma resposta válida com pelo menos 50 caracteres!"
+                this.getSpanErrorJobResponsabilites.innerHTML = "Enter a answer with at least 50 characters!"
             } else {
                 this.getSpanErrorJobResponsabilites.innerHTML = "";
             }
         }
     }
 
-    showElementsProfessionalExperienceRegistered(){
+    static showElementsProfessionalExperienceRegistered(){
 
-        let objectValidateCurriculumForms = new ValidateCurriculumForms();
+        const objectFieldsetProfessional = new FieldsetProfessional();
+        const objectValidateCurriculumForms = new ValidateCurriculumForms();
 
-        if(this.getElementHasProfessionalExperience.checked){
+        if(!objectFieldsetProfessional.getElementDoesNotHasProfessionalExperience.checked){
 
-            // has professional experience
-            this.newElementParagraphHasExperiencie.innerHTML = "The candidate HAS professional experience.";
-            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphHasExperiencie);
+            if(objectValidateCurriculumForms.newTopDivElementsRegistered.firstChild){
+                ValidateCurriculumForms.cleanDivJavaScriptElementsRegistered();
+            }
+
+            objectFieldsetProfessional.newElementParagraphHasExperiencie.innerHTML = "The candidate HAS professional experience.</strong>";
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.newElementParagraphHasExperiencie);
             
-            // company name
-            this.newElementParagraphCompanyName.innerHTML = `Company Name: ${this.getElementCompanyName.value}`;
-            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphCompanyName);
+            objectFieldsetProfessional.newElementParagraphCompanyName.innerHTML = `<strong>Company Name</strong>: ${objectFieldsetProfessional.getElementCompanyName.value}`;
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.newElementParagraphCompanyName);
 
             // start month
-            this.newElementParagraphStartMonth.innerHTML = `Start Month: ${this.getElementStartMonth.value}`;
-            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphStartMonth);
+            objectFieldsetProfessional.newElementParagraphStartMonth.innerHTML = `<strong>Start Month</strong>: ${objectFieldsetProfessional.getElementStartMonth.value}`;
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.newElementParagraphStartMonth);
 
             // end month
-            this.newElementParagraphEndMonth.innerHTML = `End Month: ${this.getElementEndMonth.value}`;
-            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphEndMonth);
+            objectFieldsetProfessional.newElementParagraphEndMonth.innerHTML = `<strong>End Month</strong>: ${objectFieldsetProfessional.getElementEndMonth.value}`;
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.newElementParagraphEndMonth);
 
             // start year
-            this.newElementParagraphStartYear.innerHTML = `Start Year: ${this.getElementStartYear.value}`;
-            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphStartYear);
+            objectFieldsetProfessional.newElementParagraphStartYear.innerHTML = `<strong>Start Year</strong>: ${objectFieldsetProfessional.getElementStartYear.value}`;
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.newElementParagraphStartYear);
 
             // end year
-            this.newElementParagraphEndYear.innerHTML = `End Year: ${this.getElementEndYear.value}`;
-            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphEndYear);
+            objectFieldsetProfessional.newElementParagraphEndYear.innerHTML = `<strong>End Year: ${objectFieldsetProfessional.getElementEndYear.value}`;
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.newElementParagraphEndYear);
 
             // bussines segment
-            this.newElementParagraphBusinessSegment.innerHTML = `Business Segment: ${this.getElementBusinessSegment}`;
-            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphBusinessSegment);
+            objectFieldsetProfessional.newElementParagraphBusinessSegment.innerHTML = `<strong>Business Segment</strong>: ${objectFieldsetProfessional.getElementBusinessSegment.value}`;
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.newElementParagraphBusinessSegment);
 
             // position held
-            this.newElementParagraphPositionHeld.innerHTML = `Position Held: ${this.getElementPositionHeld.value}`;
-            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphPositionHeld);
+            objectFieldsetProfessional.newElementParagraphPositionHeld.innerHTML = `<strong>Position Held</strong>: ${objectFieldsetProfessional.getElementPositionHeld.value}`;
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.newElementParagraphPositionHeld);
 
             // job responsabilites
-            this.newElementParagraphJobResponsabilites.innerHTML = `Job Responsabilites: ${this.getElementJobResponsabilities.value}`;
-            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphJobResponsabilites);
+            objectFieldsetProfessional.newElementParagraphJobResponsabilites.innerHTML = `<strong>Job Responsabilites</strong>: ${objectFieldsetProfessional.getElementJobResponsabilities.value}`;
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.newElementParagraphJobResponsabilites);
 
         } else {
-            this.getElementHasProfessionalExperience.innerHTML = "The candidate DOESN\'T has professional experience.";
-            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.getElementHasProfessionalExperience);
+            objectFieldsetProfessional.getElementHasProfessionalExperience.innerHTML = "<strong>The candidate DOESN\'T has professional experience.</strong>";
+            objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.getElementHasProfessionalExperience);
         }
     }
 

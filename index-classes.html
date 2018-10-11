@@ -8,13 +8,13 @@
 		<meta name=viewport content="width=device-width, initial-scale=1">
 		<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="./css/style.css">
-		<link rel="icon" href="./images/favicon.png" type="image/png">
+		<link rel="icon" href="./favicon.png" type="image/png">
 	<head>
 
 	<body>
 		
 		<header>
-			<div id="div_data_send" hidden></div>
+			<div id="div_data_send"></div>
 			<h1>Welcome Candidate</h1>
 			<br>
 			<h2>Please Enter Your Data</h2>
@@ -24,8 +24,6 @@
 		<div class="div_home">
 			
 			<h3>Personal Data</h3>
-
-			
 
 				<fieldset class="js-accordion">
 					<span id="errorCompleteName"></span><br>
@@ -258,7 +256,7 @@
 
 					<input type="radio" name="hasExperience" value="Has Professional Experience" id="hasExperience" onclick="FieldsetProfessional.showButtonAddProfessionalExperience()"> Has Professional Experience
 					
-					<input type="radio" name="hasExperience" value="Doesn't Has Professional Experience" onclick="FieldsetProfessional.hiddenButtonAddProfessionalExperience()"> Doesn't Has Professional Experience
+					<input type="radio" name="hasExperience" value="Doesn't Has Professional Experience" onclick="FieldsetProfessional.hiddenButtonAddProfessionalExperience()" id="doesNotHasExperience" checked> Doesn't Has Professional Experience
 
 					<div id="button_add_professional_exp" hidden>
 						<br><br>
@@ -266,8 +264,11 @@
 					</div>
 					
 					<div id="div_has_professional_exp" hidden>
+
 						<br><br>
+
 						<hr>
+
 						<span id="errorCompanyName"></span><br>
 						<label>Company Name:</label>
 						<input type="text" placeholder="Digit company name" id="companyName" name="companyName">
@@ -374,34 +375,25 @@
 	        <br><br>
 		
 			<h4>
-			<a href="https://www.icmc.usp.br/">ICMC USP 2018</a>
+				<a href="https://www.icmc.usp.br/">ICMC USP 2018</a>
 
-			<br><br>
+				<br><br>
 
-			© 2018 <a href="https://galhardoo.com">Alex Galhardo</a>
+				© 2018 <a href="https://galhardoo.com">Alex Galhardo</a>
 
-			<br><br>
+				<br><br>
 
-			Versão 2.0
-		
-			<br>
-			<br>
+				Versão 2.0
+			
+				<br>
+				<br>
 
-			<a href="https://github.com/AlexGalhardo/galhardoo.com/tree/master/app">Site made with ECMAScript6+ & LocalStorage & JSON Apis</a>
-		</h4>
+				<a href="https://github.com/AlexGalhardo/galhardoo.com/tree/master/app">Site made with ECMAScript6+ & LocalStorage & JSON Apis</a>
+			</h4>
 		
 		<br>
-		
-		<!-- Para usar ECMASCRIPT6+ usando Classes -->
+
 		<script src="./js/classes.js"></script>
-
-		<!-- Para usar Objects Natives (Modo Antigo)
-		<script src="./js/objects.js"></script>
-	    -->
-
-		<!-- Para Usar Functions Objects com Prototypes
-		<script src="./js/prototypes.js"></script>
-        -->
 
 	</body>
 
