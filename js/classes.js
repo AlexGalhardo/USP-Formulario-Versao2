@@ -133,6 +133,14 @@ class FieldsetPersonal {
         }
     }
 
+    getGender(){
+        for(let i = 0; i < this.getElementsRadioGender.length; i++){
+            if(this.getElementsRadioGender[i].checked){
+                return this.getElementsRadioGender[i].value;
+            }
+        }
+    }
+
     // select option 
     verifyIfMaritalStatusIsSelected(){
         if(this.getElementsOptionMaritalStatus.value == ''){
@@ -177,15 +185,10 @@ class FieldsetPersonal {
             objectFieldsetPersonal.verifyIfNationalityWasSelected();
             objectFieldsetPersonal.verifyIfNumberIDHasValue();
             FieldsetPersonal.showElementsPersonalRegistered();
+            FieldsetPersonal.stringifyAndStoragePersonalFieldsetValues();
         } catch(error){
             console.log(error);
         }
-    }
-
-    static stringifyAndStoragePersonalFieldsetValues(){
-        const objectFieldsetPersonal = new FieldsetPersonal();
-        let PersonalValuesJSON = JSON.stringify(objectFieldsetPersonal);
-        localStorage.setItem("PersonalValuesJSON", PersonalValuesJSON);
     }
 
     static showElementsPersonalRegistered(){
@@ -213,6 +216,27 @@ class FieldsetPersonal {
 
         objectFieldsetPersonal.newElementParagraphNumberID.innerHTML = `<strong>Number ID:</strong> ${objectFieldsetPersonal.getElementNumberID.value}`;
         objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetPersonal.newElementParagraphNumberID);
+    }
+
+    static stringifyAndStoragePersonalFieldsetValues(){
+        
+        const objectFieldsetPersonal = new FieldsetPersonal();
+        
+        // get education values into a object
+        let objectFieldsetPersonalValues = {
+            completeName: objectFieldsetPersonal.getElementCompleteName.value,  
+            email: objectFieldsetPersonal.getElementEmail.value,
+            cellphone: objectFieldsetPersonal.getElementCellphone.value,
+            gender: objectFieldsetPersonal.getGender(),  
+            maritalStatus: objectFieldsetPersonal.getElementsOptionMaritalStatus.value,
+            nationality: objectFieldsetPersonal.getElementsOptionNationality.value,
+            numberID: objectFieldsetPersonal.getElementNumberID.value
+        }
+
+        // stringify object to string JSON format
+        const PersonalValuesJSON = JSON.stringify(objectFieldsetPersonalValues);
+        // storage in browser
+        localStorage.setItem("PersonalValuesJSON", PersonalValuesJSON);
     }
 }
 
@@ -260,12 +284,8 @@ class FieldsetAddress {
         objectFieldsetAddress.verifyIfStreetHasValue();
         objectFieldsetAddress.verifyIfNeighborhoodHasValue();
         objectFieldsetAddress.verifyIfResidenceNumberHasValue();
-    }
-
-    static stringifyAndStorageAddressFieldsetValues(){
-        const objectFieldsetAddress = new FieldsetAddress();
-        let AddressValuesJSON = JSON.stringify(objectFieldsetAddress);
-        localStorage.setItem("AddressValuesJSON", AddressValuesJSON);
+        FieldsetAddress.showElementsAddressRegistered();
+        FieldsetAddress.stringifyAndStorageAddressFieldsetValues();
     }
 
     static showElementsAddressRegistered(){
@@ -281,6 +301,23 @@ class FieldsetAddress {
 
         objectFieldsetAddress.newElementParagraphResidenceNumber.innerHTML = `<strong>Residence Number:</strong> ${objectFieldsetAddress.getElementResidenceNumber.value}`;
         objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetAddress.newElementParagraphResidenceNumber);
+    }
+
+    static stringifyAndStorageAddressFieldsetValues(){
+        
+        const objectFieldsetAddress = new FieldsetAddress();
+        
+        // get education values into a object
+        let objectFieldsetAddressValues = {
+            street: objectFieldsetAddress.getElementStreet.value,  
+            neighborhood: objectFieldsetAddress.getElementNeighborhood.value,
+            residenceNumber: objectFieldsetAddress.getElementResidenceNumber.value
+        }
+
+        // stringify object to string JSON format
+        const AddressValuesJSON = JSON.stringify(objectFieldsetAddressValues);
+        // storage in browser
+        localStorage.setItem("AddressValuesJSON", AddressValuesJSON);
     }
 }
 
@@ -326,6 +363,15 @@ class FieldsetJobInterest {
         }
     }
 
+    getPostName(){
+        let i;
+        for(i = 0; i < this.getElementsRadioPostName.length; i++){
+            if(this.getElementsRadioPostName[i].checked){
+                return this.getElementsRadioPostName[i].value;
+            }
+        }
+    }
+
     verifyIfExperienceIsChecked(){
         let experienceChecked = false;
         for(let i = 0; i < this.getElementsRadioExperience.length; i++){
@@ -338,6 +384,15 @@ class FieldsetJobInterest {
             document.getElementById("errorPostExperience").innerHTML = "You need to select a experience below!";
         } else {
             document.getElementById("errorPostExperience").innerHTML = "";
+        }
+    }
+
+    getJobExperience(){
+        let i;
+        for(i = 0; i < this.getElementsRadioExperience.length; i++){
+            if(this.getElementsRadioExperience[i].checked){
+                return this.getElementsRadioExperience[i].value;
+            }
         }
     }
 
@@ -358,17 +413,16 @@ class FieldsetJobInterest {
     }
 
     static verifyFieldSetJobInterest(){
+        
         const objectFieldsetJobInterest = new FieldsetJobInterest();
+        
         objectFieldsetJobInterest.verifyIfPostNameIsChecked();
         objectFieldsetJobInterest.verifyIfExperienceIsChecked();
         objectFieldsetJobInterest.verifyIfInterestRegionHasValue();
         objectFieldsetJobInterest.verifyIfSalaryPretensionHasValue();
-    }
-
-    static stringifyAndStorageJobInterestFieldsetValues(){
-        const objectFieldsetJobInterest = new FieldsetJobInterest();
-        let JobInterestValuesJSON = JSON.stringify(objectFieldsetJobInterest);
-        localStorage.setItem("JobInterestValuesJSON", JobInterestValuesJSON);
+        
+        FieldsetJobInterest.showElementsJobInterestRegistered();
+        FieldsetJobInterest.stringifyAndStorageJobInterestFieldsetValues();
     }
 
     static showElementsJobInterestRegistered(){
@@ -397,6 +451,24 @@ class FieldsetJobInterest {
     
         objectFieldsetJobInterest.newElementParagraphSalaryPretension.innerHTML = `<strong>Salary Pretension:</strong> ${objectFieldsetJobInterest.getElementSalaryPretension.value} / month`;
         objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetJobInterest.newElementParagraphSalaryPretension);
+    }
+
+    static stringifyAndStorageJobInterestFieldsetValues(){
+        
+        const objectFieldsetJobInterest = new FieldsetJobInterest();
+        
+        // get education values into a object
+        let objectFieldsetJobInterestValues = {
+            jobPost: objectFieldsetJobInterest.getPostName(),  
+            jobExperience: objectFieldsetJobInterest.getJobExperience(),
+            startMonth: objectFieldsetJobInterest.getElementsOptionInterestRegion.value,
+            startYear: objectFieldsetJobInterest.getElementSalaryPretension.value,
+        }
+
+        // stringify object to string JSON format
+        const JobInterestValuesJSON = JSON.stringify(objectFieldsetJobInterestValues);
+        // storage in browser
+        localStorage.setItem("JobInterestValuesJSON", JobInterestValuesJSON);
     }
 }
 
