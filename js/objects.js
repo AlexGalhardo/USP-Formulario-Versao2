@@ -507,7 +507,9 @@ function verifyFieldSetEducation(){
 }
 
 function stringifyAndStorageEducationFieldsetValues(){
-  	let EducationValuesJSON = JSON.stringify(FieldsetEducation);
+	const objectFieldsetEducation = new FieldsetEducation();
+	objectFieldsetEducation.showElementsEducationRegistered = objectFieldsetEducation.showElementsEducationRegistered.toString();
+  	const EducationValuesJSON = JSON.stringify(objectFieldsetEducation);
   	localStorage.setItem("EducationValuesJSON", EducationValuesJSON);
 }
 

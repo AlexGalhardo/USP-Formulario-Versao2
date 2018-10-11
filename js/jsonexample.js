@@ -25,8 +25,6 @@ text = localStorage.getItem("testJSON");
 obj = JSON.parse(text);
 document.getElementById("demo").innerHTML = obj.name;
 
-
-
 // In JSON, functions are not allowed as object values.
 // The JSON.stringify() function will remove any functions from a JavaScript object, both the key and the value:
 // This can be omitted if you convert your functions into strings before running the JSON.stringify() function.

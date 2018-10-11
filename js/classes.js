@@ -1,5 +1,3 @@
-// import ValidateCurriculumForms from './classes/ValidateCurriculumForms.js';
-
 class ValidateCurriculumForms {
 
     constructor(){
@@ -403,6 +401,10 @@ class FieldsetJobInterest {
 }
 
 
+
+/**
+ * EDUCATION
+ */
 class FieldsetEducation {
   
     constructor(){
@@ -410,18 +412,19 @@ class FieldsetEducation {
         this.getElementDivEducation = document.getElementById("div_education");
 
         this.getElementsRadioSchooling = document.getElementsByName("schooling");
-        this.elSpanErrorSchooling = document.getElementById("errorSchooling");
+        this.schoolingValue;
+        this.getSpanErrorSchooling = document.getElementById("errorSchooling");
 
         this.attrRadioSchoolingChecked = false;
 
-        this.elCourseName = document.getElementById("courseName");
-        this.elSpanErrorCourseName = document.getElementById("errorCourseName");
+        this.getElementCourseName = document.getElementById("courseName");
+        this.getSpanErrorCourseName = document.getElementById("errorCourseName");
 
         this.getElementInstitutionName = document.getElementById("institutionName");
-        this.elSpanErrorInstitutionName = document.getElementById("errorInstitutionName");
+        this.getSpanErrorInstitutionName = document.getElementById("errorInstitutionName");
 
-        this.elGraduate = document.getElementById("graduate");
-        this.elSpanErrorGraduate = document.getElementById("errorGraduate");
+        this.getElementGraduate = document.getElementById("graduate");
+        this.getSpanErrorGraduate = document.getElementById("errorGraduate");
 
         this.getElementIncompleteSchool = document.getElementById("incompleteHighSchool");
         this.getElementCompleteSchool = document.getElementById("completeHighSchool");
@@ -432,6 +435,17 @@ class FieldsetEducation {
         this.newElementPagragraphInstitutionNameRegistered = document.createElement("p");
     }
 
+    getSchoolingValue(){
+        let i;
+        for(i = 0; i < this.getElementsRadioSchooling.length; i++){
+            if(this.getElementsRadioSchooling[i].checked){
+                this.attrRadioSchoolingChecked = true;
+                break;
+            }
+        }
+        return this.getElementsRadioSchooling[i].value;
+    }
+
     verifyIfElementRadioEducationIsChecked(){
         for(let i = 0; i < this.getElementsRadioSchooling.length; i++){
             if(this.getElementsRadioSchooling[i].checked){
@@ -440,27 +454,31 @@ class FieldsetEducation {
             }
         }
         if(!this.attrRadioSchoolingChecked){
-            document.getElementById("errorSchooling").innerHTML = "You need to choose a option below!";
+            this.getSpanErrorSchooling.innerHTML = "You need to choose a option below!";
         }
     }
 
     verifyIfCourseNameHasValue(){
-        if(this.elCourseName.innerHTML == ""){
-            document.getElementById("errorCourseName").innerHTML = "You need to enter your course name!";
+        if(this.getElementCourseName.innerHTML == ""){
+            this.getSpanErrorCourseName.innerHTML = "You need to enter your course name!";
+        } else {
+            this.getSpanErrorCourseName.innerHTML = "";
         }
     }
 
     verifyIfGraduateIsChecked(){
-        if(this.elGraduate.value == ''){
-            this.elSpanErrorGraduate.innerHTML = "You need to check some option below!";
+        if(this.getElementGraduate.value == ''){
+            this.getSpanErrorGraduate.innerHTML = "You need to check some option below!";
+        } else {
+            this.getSpanErrorGraduate.innerHTML = "";
         }
     }
 
     verifyIfInstitutionNameHasValue(){
       if(this.getElementInstitutionName.value == ""){
-          this.elSpanErrorInstitutionName.innerHTML = "You need to enter a institution name!";
+          this.getSpanErrorInstitutionName.innerHTML = "You need to enter a institution name!";
       } else {
-          this.elSpanErrorInstitutionName.innerHTML = "";
+          this.getSpanErrorInstitutionName.innerHTML = "";
       }
     }
 
@@ -488,6 +506,7 @@ class FieldsetEducation {
         objectFieldsetEducation.verifyIfInstitutionNameHasValue();
         objectFieldsetEducation.verifyIfCourseNameHasValue();
         FieldsetEducation.showElementsEducationRegistered();
+        FieldsetEducation.stringifyAndStorageEducationFieldsetValues();
     }
 
     static showElementsEducationRegistered(){
@@ -497,19 +516,20 @@ class FieldsetEducation {
 
         for(let i = 0; i <  objectFieldsetEducation.getElementsRadioSchooling.length; i++){
             if(objectFieldsetEducation.getElementsRadioSchooling[i].checked){
-                objectFieldsetEducation.newElementParagraphSchoolingRegistered.innerHTML = `<strong>Schooling</strong>: ${objectFieldsetEducation.getElementsRadioSchooling.value}`;
+                objectFieldsetEducation.newElementParagraphSchoolingRegistered.innerHTML = `<strong>Schooling</strong>: ${objectFieldsetEducation.getElementsRadioSchooling[i].value}`;
+                objectFieldsetEducation.schoolingValue = objectFieldsetEducation.getElementsRadioSchooling[i].value;
                 break;
             }
         }
         objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetEducation.newElementParagraphSchoolingRegistered);
 
-        objectFieldsetEducation.newElementParagraphGraduateYearRegistered.innerHTML = `<strong>Graduate Year</strong>: ${objectFieldsetEducation.elGraduate.value}`;
+        objectFieldsetEducation.newElementParagraphGraduateYearRegistered.innerHTML = `<strong>Graduate Year</strong>: ${objectFieldsetEducation.getElementGraduate.value}`;
         objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetEducation.newElementParagraphGraduateYearRegistered);
 
         if(!objectFieldsetEducation.getElementIncompleteSchool.checked || 
             !objectFieldsetEducation.getElementCompleteSchool.checked){
 
-            objectFieldsetEducation.newElementParagraphSchoolingRegistered.innerHTML = `<strong>Course Name</strong>: ${objectFieldsetEducation.elCourseName.value}`;
+            objectFieldsetEducation.newElementParagraphSchoolingRegistered.innerHTML = `<strong>Course Name</strong>: ${objectFieldsetEducation.getElementCourseName.value}`;
             objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetEducation.newElementParagraphSchoolingRegistered);
 
             objectFieldsetEducation.newElementPagragraphInstitutionNameRegistered.innerHTML = `<strong>Institution Name</strong>:  ${objectFieldsetEducation.getElementInstitutionName.value}`;
@@ -518,8 +538,20 @@ class FieldsetEducation {
     }
 
     static stringifyAndStorageEducationFieldsetValues(){
-        let objectFieldsetEducation = new FieldsetEducation();
-        let EducationValuesJSON = JSON.stringify(objectFieldsetEducation);
+        
+        const objectFieldsetEducation = new FieldsetEducation();
+        
+        // get education values into a object
+        let objectFieldEducationValues = {
+            schooling: objectFieldsetEducation.getSchoolingValue(),  
+            graduate: objectFieldsetEducation.getElementGraduate.value,
+            courseName: objectFieldsetEducation.getElementCourseName.value,
+            institutionName: objectFieldsetEducation.getElementInstitutionName.value
+        }
+
+        // stringify object to string JSON format
+        const EducationValuesJSON = JSON.stringify(objectFieldEducationValues);
+        // storage in browser
         localStorage.setItem("EducationValuesJSON", EducationValuesJSON);
     }
 }
@@ -550,6 +582,8 @@ class FieldsetProfessional {
         this.getSpanErrorJobResponsabilites = document.getElementById("errorJobResponsabilities");
 
         this.businessSegmentChecked = false;
+
+        this.hasProfessionalExperience = false;
 
         this.getElementHasProfessionalExperience = document.getElementById("hasExperience");
         this.getElementDoesNotHasProfessionalExperience = document.getElementById("doesNotHasExperience");
@@ -597,6 +631,7 @@ class FieldsetProfessional {
         const objectFieldsetProfessional = new FieldsetProfessional();
         objectFieldsetProfessional.verifyProfessionalExperienceValues();
         FieldsetProfessional.showElementsProfessionalExperienceRegistered();
+        FieldsetProfessional.stringifyAndStorageProfessionalFieldsetValues();
     }
 
     static hiddenCompanyExperience(){
@@ -604,11 +639,24 @@ class FieldsetProfessional {
         objectFieldsetProfessional.getElementDivHasProfessionalExperience.setAttribute("hidden", "true");
     }
 
+    getBusinessSegmentValue(){
+        let i;
+        for(i = 0; i < this.getElementsBusinessSegment.length; i++){
+            if(this.getElementsBusinessSegment[i].checked){
+                this.businessSegmentChecked = true;
+                break;
+            }
+        }
+        return this.getElementsBusinessSegment[i].value;
+    }
+
     verifyProfessionalExperienceValues(){
 
         // candidate has professional experience?
         if(!this.getElementDoesNotHasProfessionalExperience.checked){
             
+            this.hasProfessionalExperience = true;
+
             if(this.getElementCompanyName.value == ''){
                 this.getSpanErrorCompanyName.innerHTML = "You need enter the name of the last company you worked in";
             } else {
@@ -680,7 +728,7 @@ class FieldsetProfessional {
             objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.newElementParagraphEndYear);
 
             // bussines segment
-            objectFieldsetProfessional.newElementParagraphBusinessSegment.innerHTML = `<strong>Business Segment</strong>: ${objectFieldsetProfessional.getElementBusinessSegment.value}`;
+            objectFieldsetProfessional.newElementParagraphBusinessSegment.innerHTML = `<strong>Business Segment</strong>: ${objectFieldsetProfessional.getBusinessSegmentValue()}`;
             objectValidateCurriculumForms.newTopDivElementsRegistered.appendChild(objectFieldsetProfessional.newElementParagraphBusinessSegment);
 
             // position held
@@ -698,8 +746,25 @@ class FieldsetProfessional {
     }
 
     static stringifyAndStorageProfessionalFieldsetValues(){
-        let objectFieldsetProfessional = new FieldsetProfessional();
-        let ProfessionalValuesJSON = JSON.stringify(objectFieldsetProfessional);
+        
+        const objectFieldsetProfessional = new FieldsetProfessional();
+        
+        // get education values into a object
+        let objectFieldsetProfessionalValues = {
+            hasExperience: objectFieldsetProfessional.hasProfessionalExperience,  
+            companyName: objectFieldsetProfessional.getElementCompanyName.value,
+            startMonth: objectFieldsetProfessional.getElementStartMonth.value,
+            startYear: objectFieldsetProfessional.getElementStartYear.value,
+            endMonth: objectFieldsetProfessional.getElementEndMonth.value,
+            endYear: objectFieldsetProfessional.getElementEndYear.value,
+            businessSegment: objectFieldsetProfessional.getBusinessSegmentValue(), 
+            positionHeld: objectFieldsetProfessional.getElementPositionHeld.value,
+            jobResponsabilities: objectFieldsetProfessional.getElementJobResponsabilities.value
+        }
+
+        // stringify object to string JSON format
+        const ProfessionalValuesJSON = JSON.stringify(objectFieldsetProfessionalValues);
+        // storage in browser
         localStorage.setItem("ProfessionalValuesJSON", ProfessionalValuesJSON);
     }
 }
