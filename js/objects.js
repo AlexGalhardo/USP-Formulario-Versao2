@@ -15,6 +15,9 @@ function cleanDivJavaScriptElementsRegistered(){
 // function object ValidateCurriculumForms static method
 function verifyCurriculumForms(){
 
+	// clean previous registered data
+	cleanDivJavaScriptElementsRegistered();
+
     verifyFieldSetPersonal();
     FieldsetPersonal.showElementsPersonalRegistered();
     stringifyAndStoragePersonalFieldsetValues();
@@ -44,18 +47,25 @@ const FieldsetPersonal = {
 
 	getElementCompleteName: document.getElementById("completeName"),
 	getSpanErrorCompleteName: document.getElementById("errorCompleteName"),
+
     getElementEmail: document.getElementById("email"),
     getSpanErrorEmail: document.getElementById("errorEmail"),
+
     getElementCellphone: document.getElementById("cellphone"),
     getSpanErrorCellphone: document.getElementById("errorCellphone"),
+
     getElementsRadioGender: document.getElementsByName("gender"),
     getSpanErrorGender: document.getElementById("errorGender"),
+
     getElementsOptionMaritalStatus: document.getElementById("maritalStatus"),
     getSpanErrorMaritalStatus: document.getElementById("errorMaritalStatus"),
+
     getElementsOptionNationality: document.getElementById("nationality"),
     getSpanErrorNationality: document.getElementById("errorNationality"),
+
     getElementNumberID: document.getElementById("numberID"),
     getSpanErrorNumberID: document.getElementById("errorNumberID"),
+
     newElementParagraphCompleteName: document.createElement("p"),
     newElementParagraphEmail: document.createElement("p"),
     newElementParagraphCellphone: document.createElement("p"),
@@ -137,31 +147,25 @@ const FieldsetPersonal = {
         }
     },
     showElementsPersonalRegistered(){
-    	// company name
+
         this.newElementParagraphCompleteName.innerHTML = `Complete Name: ${this.getElementCompleteName.value}`;
         ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphCompleteName);
 
-        // start month
         this.newElementParagraphEmail.innerHTML = `Email: ${this.getElementEmail.value}`;
         ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphEmail);
 
-        // end month
         this.newElementParagraphCellphone.innerHTML = `Cellhpone: ${this.getElementCellphone.value}`;
         ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphCellphone);
 
-        // start year
         this.newElementParagraphGender.innerHTML = `Gender: ${this.getElementsRadioGender.value}`;
         ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphGender);
 
-        // end year
         this.newElementParagraphMaritalStatus.innerHTML = `Marital Status: ${this.getElementsOptionMaritalStatus.value}`;
         ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphMaritalStatus);
 
-        // bussines segment
         this.newElementParagraphNationality.innerHTML = `Nationality: ${this.getElementsOptionNationality.value}`;
         ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphNationality);
 
-        // position held
         this.newElementParagraphNumberID.innerHTML = `Number ID: ${this.getElementNumberID.value}`;
         ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphNumberID);
     }
@@ -176,6 +180,7 @@ function verifyFieldSetPersonal(){
 	    FieldsetPersonal.verifyIfMaritalStatusIsSelected();
 	    FieldsetPersonal.verifyIfNationalityWasSelected();
 	    FieldsetPersonal.verifyIfNumberIDHasValue();
+	    FieldsetPersonal.showElementsPersonalRegistered();
 	} catch(e){
 		console.log(e);
 	}
@@ -226,15 +231,13 @@ const FieldsetAddress = {
         }
     },
     showElementsAddressRegistered(){
-    	// company name
+
         this.newElementParagraphStreet.innerHTML = `Street: ${this.getElementStreet.value}`;
         ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphStreet);
 
-        // start month
         this.newElementParagraphNeighborhood.innerHTML = `Neighborhood: ${this.getElementNeighborhood.value}`;
         ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphNeighborhood);
 
-        // end month
         this.newElementParagraphResidenceNumber.innerHTML = `Residence Number: ${this.getElementResidenceNumber.value}`;
         ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphResidenceNumber);
     }
@@ -245,6 +248,7 @@ function verifyFieldSetAddress(){
 	    FieldsetAddress.verifyIfStreetHasValue();
 	    FieldsetAddress.verifyIfNeighborhoodHasValue();
 	    FieldsetAddress.verifyIfResidenceNumberHasValue();
+	    FieldsetAddress.showElementsAddressRegistered();
 	} 
 	catch(error){
 		console.log(error);
@@ -260,22 +264,36 @@ function stringifyAndStorageAddressFieldsetValues(){
  * Job Interest
  */
 const FieldsetJobInterest = {
-	getElementsRadioNamePost: document.getElementsByName("post"),
+
+	getElementsRadioPostName: document.getElementsByName("post"),
+	getSpanErrorNamePost: document.getElementById("errorPostName"),
+
     getElementsRadioExperience: document.getElementsByName("experience"),
+    getSpanErrorExperience: document.getElementById("errorPostExperience"),
+
     getElementsOptionInterestRegion: document.getElementById("interestRegion"),
+    getSpanErrorInterestRegion: document.getElementById("errorInterestRegion"),
+
     getElementSalaryPretension: document.getElementById("salaryPretension"),
+    getSpanErrorSalaryPretension: document.getElementById("errorSalaryPretension"),
+
+    newElementParagraphPostName: document.createElement("p"),
+    newElementParagraphExperience: document.createElement("p"),
+    newElementParagraphInterestRegion: document.createElement("p"),
+    newElementParagraphSalaryPretension: document.createElement("p"),
+
     verifyIfPostNameIsChecked(){
         let postNameChecked = false;
-        for(let i = 0; i < this.getElementsRadioNamePost.length; i++){
-            if(this.getElementsRadioNamePost[i].checked){
+        for(let i = 0; i < this.getElementsRadioPostName.length; i++){
+            if(this.getElementsRadioPostName[i].checked){
                 postNameChecked = true;
                 break;
             }
         }
         if(!postNameChecked){
-            document.getElementById("errorPostName").innerHTML = "You need to select a post below!";
+            this.getSpanErrorNamePost.innerHTML = "You need to select a post below!";
         } else {
-            document.getElementById("errorPostName").innerHTML = "";
+            this.getSpanErrorNamePost.innerHTML = "";
         }
     },
     verifyIfExperienceIsChecked(){
@@ -287,24 +305,52 @@ const FieldsetJobInterest = {
             }
         }
         if(!experienceChecked){
-            document.getElementById("errorPostExperience").innerHTML = "You need to select a experience below!";
+            this.getSpanErrorExperience.innerHTML = "You need to select a experience below!";
         } else {
-            document.getElementById("errorPostExperience").innerHTML = "";
+            this.getSpanErrorExperience.innerHTML = "";
         }
     },
     verifyIfInterestRegionHasValue(){
         if(this.getElementsOptionInterestRegion.value == ''){
-            document.getElementById("errorInterestRegion").innerHTML = "You need to choose a region interest below!";
+            this.getSpanErrorInterestRegion.innerHTML = "You need to choose a region interest below!";
         } else {
-            document.getElementById("errorInterestRegion").innerHTML = "";
+            this.getSpanErrorInterestRegion.innerHTML = "";
         }
     },
     verifyIfSalaryPretensionHasValue(){
         if(this.getElementSalaryPretension.value == ""){
-            document.getElementById("errorSalaryPretension").innerHTML = "You need to enter a salary pretension!";
+            this.getSpanErrorSalaryPretension.innerHTML = "You need to enter a salary pretension!";
         } else {
-            document.getElementById("errorSalaryPretension").innerHTML = "";
+            this.getSpanErrorSalaryPretension.innerHTML = "";
         }
+    },
+    showElementsJobInterestRegistered(){
+
+    	let postNameChecked = false;
+        for(let i = 0; i < this.getElementsRadioPostName.length; i++){
+            if(this.getElementsRadioPostName[i].checked){
+                postNameChecked = true;
+                this.newElementParagraphPostName.innerHTML = `Post Name: ${this.getElementsRadioPostName[i].value}`;
+        		ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphPostName);
+                break;
+            }
+        }
+        
+        let experienceChecked = false;
+        for(let i = 0; i < this.getElementsRadioExperience.length; i++){
+            if(this.getElementsRadioExperience[i].checked){
+                experienceChecked = true;
+                this.newElementParagraphExperience.innerHTML = `Experience: ${this.getElementsRadioExperience[i].value}`;
+        		ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphExperience);
+                break;
+            }
+        }
+
+        this.newElementParagraphInterestRegion.innerHTML = `Interest Region: ${this.getElementsOptionInterestRegion.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphInterestRegion);
+    
+        this.newElementParagraphSalaryPretension.innerHTML = `Salary Pretension: ${this.getElementSalaryPretension.value}`;
+        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphSalaryPretension);
     }
 }
 
@@ -314,6 +360,7 @@ function verifyFieldSetJobInterest(){
     FieldsetJobInterest.verifyIfExperienceIsChecked();
     FieldsetJobInterest.verifyIfInterestRegionHasValue();
     FieldsetJobInterest.verifyIfSalaryPretensionHasValue();
+    FieldsetJobInterest.showElementsJobInterestRegistered();
 }
 
 function stringifyAndStorageJobInterestFieldsetValues(){
@@ -326,22 +373,31 @@ function stringifyAndStorageJobInterestFieldsetValues(){
  * EDUCATION 
  */
 const FieldsetEducation = {
+
 	getElementDivEducation: document.getElementById("div_education"),
+
     getElementsRadioSchooling: document.getElementsByName("schooling"),
     getSpanErrorSchooling: document.getElementById("errorSchooling"),
+
     attrRadioSchoolingChecked: false,
+
     getCourseName: document.getElementById("courseName"),
     getSpanErrorCourseName: document.getElementById("errorCourseName"),
+
     getElementInstitutionName: document.getElementById("institutionName"),
     getSpanErrorInstitutionName: document.getElementById("errorInstitutionName"),
+
     getGraduate: document.getElementById("graduate"),
     getSpanErrorGraduate: document.getElementById("errorGraduate"),
+
     getElementIncompleteSchool: document.getElementById("incompleteHighSchool"),
     getElementCompleteSchool: document.getElementById("completeHighSchool"),
+
     newElementParagraphSchoolingRegistered: document.createElement("p"),
     newElementParagraphGraduateYearRegistered: document.createElement("p"),
     newElementParagraphCourseNameRegistered: document.createElement("p"),
     newElementPagragraphInstitutionNameRegistered: document.createElement("p"),
+
     verifyIfElementRadioEducationIsChecked(){
         for(let i = 0; i < this.getElementsRadioSchooling.length; i++){
             if(this.getElementsRadioSchooling[i].checked){
@@ -388,19 +444,15 @@ const FieldsetEducation = {
 	    }
 	    ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphSchoolingRegistered);
 
-	    // show graduate year value
 	    this.newElementParagraphGraduateYearRegistered.innerHTML = `Graduate Year: ${this.getGraduate.value}`;
 	    ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphGraduateYearRegistered);
 
-	    // show graduate Course Name and Institution Name
 	    if(!this.getElementIncompleteSchool.checked || 
 	        !this.getElementCompleteSchool.checked){
 
-	        // show course name registered
 	        this.newElementParagraphSchoolingRegistered.innerHTML = `Course Name: ${this.getCourseName.value}`;
 	        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementParagraphSchoolingRegistered);
 
-	        // show institution name registered
 	        this.newElementPagragraphInstitutionNameRegistered.innerHTML = `Instituion Name:  ${this.getElementInstitutionName.value}`;
 	        ValidateCurriculumForms.newTopDivElementsRegistered.appendChild(this.newElementPagragraphInstitutionNameRegistered);
 	    }
@@ -438,23 +490,31 @@ function stringifyAndStorageEducationFieldsetValues(){
  * PROFESSIONAL
  */
 const FieldsetProfessional = {
+
 	getElementCompanyName: document.getElementById("companyName"),
+	getSpanErrorCompanyName: document.getElementById("errorCompanyName"),
+
     getElementStartMonth: document.getElementsByName("monthStart")[0],
     getElementEndMonth: document.getElementsByName("endMonth")[0],
     getElementStartYear: document.getElementsByName("yearStart")[0],
     getElementEndYear: document.getElementsByName("endYear")[0],
+
     getElementsBusinessSegment: document.getElementsByName("businessSegment"),
-    getElementPositionHeld: document.getElementById("positionHeld"),
-    getElementJobResponsabilities: document.getElementById("jobResponsabilities"),
-    getSpanErrorCompanyName: document.getElementById("errorCompanyName"),
-    getSpanErrorPositionHeld: document.getElementById("errorPositionHeld"),
     getSpanErrorBusinessSegment: document.getElementById("errorBusinessSegment"),
+
+    getElementPositionHeld: document.getElementById("positionHeld"),
+    getSpanErrorPositionHeld: document.getElementById("errorPositionHeld"),
+
+    getElementJobResponsabilities: document.getElementById("jobResponsabilities"),
     getSpanErrorJobResponsabilites: document.getElementById("errorJobResponsabilities"),
+
     businessSegmentChecked: false,
     getElementHasProfessionalExperience: document.getElementById("hasExperience"),
     getElementDoestNotHasProfessionalExperience: document.getElementById("doesNotHasExperience"),
+
     getElementButtonAddExperience: document.getElementById("button_add_professional_exp"),
     getElementDivHasProfessionalExperience: document.getElementById("div_has_professional_exp"),
+
     newElementParagraphHasProfessionalExperience: document.createElement("p"),
     newElementParagraphCompanyName: document.createElement("p"),
     newElementParagraphStartMonth: document.createElement("p"),
