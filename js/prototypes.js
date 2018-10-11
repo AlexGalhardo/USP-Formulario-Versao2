@@ -270,6 +270,9 @@ function stringifyAndStorageJobInterestFieldsetValues(){
 }
 
 
+/**
+ * EDUCATION
+ */
 function FieldsetEducation() {
   	this.getElementDivEducation = document.getElementById("div_education");
 
@@ -277,8 +280,6 @@ function FieldsetEducation() {
     this.getSpanErrorSchooling = document.getElementById("errorSchooling");
     
     this.attrRadioSchoolingChecked = false;
-    
-    this.textNodeEducation; // undefined
 
     this.getCourseName = document.getElementById("courseName");
     this.getSpanErrorCourseName = document.getElementById("errorCourseName");
